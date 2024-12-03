@@ -10,10 +10,13 @@ import couponRoute from './routes/coupon.route.js'
 import termsRoute from './routes/terms.route.js'
 import policyRoute from './routes/policy.route.js'
 import NotificationRoute from './routes/pushnotification.route.js'
+import path from 'path'
 
 dotenv.config({})
 
 const app = express();
+
+const _dirname = path.resolve();
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
@@ -33,6 +36,11 @@ app.use("/api/coupon",couponRoute);
 app.use("/api/terms",termsRoute);
 app.use("/api/privacypolicy",policyRoute);
 app.use("/api/pushnotification",NotificationRoute);
+
+app.use(express.static(path.join(_dirname,"/cab-booking-admin-frontend/dist")))
+app.get('*',(_,res)=>{
+    res.sendFile(path.resolve(_dirname,"cab-booking-admin-frontend","dist","index.html"));
+})
 
 app.listen(PORT,()=>{
     connectDB()

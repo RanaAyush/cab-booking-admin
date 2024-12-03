@@ -25,7 +25,6 @@ import DriverReport from './pages/DriverReport.jsx';
 import ServiceWiseReport from './pages/ServiceWiseReport.jsx';
 import Roles from './pages/Roles.jsx';
 import Permissions from './pages/Permissions.jsx';
-import Test from './components/test.jsx';
 import { LoadScript } from '@react-google-maps/api'
 import UpdateService from './components/UpdateService.jsx';
 import UpdateCoupon from './components/UpdateCoupon.jsx';
@@ -75,7 +74,6 @@ function App() {
           <Route path="/report/servicewise" element={<ProtectedRoute><ServiceWiseReport /></ProtectedRoute>} />
           <Route path="/role" element={<ProtectedRoute><Roles /></ProtectedRoute>} />
           <Route path="/permission" element={<ProtectedRoute><Permissions /></ProtectedRoute>} />
-          <Route path="/test" element={<ProtectedRoute><Test /></ProtectedRoute>} />
           <Route path="*" element={<ProtectedRoute><NotFound /></ProtectedRoute>} />
         </Routes>
       </Router>
