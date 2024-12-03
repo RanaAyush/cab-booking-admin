@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MdDelete } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import axios from 'axios'
-import ToogleButton from './toogleButton';
+import ToogleButton from './ToogleButton.jsx';
 
 const RegionList = () => {
     
