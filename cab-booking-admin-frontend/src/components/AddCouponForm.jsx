@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import RegionDropdown from './RegionDropdown.jsx'
 import axios from "axios";
 import {useNavigate} from 'react-router-dom'
+import BACKEND_API_ENDPOINT from '../utils/constants.js'
 
 const AddCouponForm = () => {
   const [formData, setFormData] = useState({
@@ -27,7 +28,7 @@ const AddCouponForm = () => {
     // Fetch regions from the backend
     const fetchRegions = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/region/getregioncity');
+        const response = await axios.get(`${BACKEND_API_ENDPOINT}/api/region/getregioncity`);
         if (response.data.success) {
           setRegions(response.data.data);
         } else {
@@ -68,7 +69,7 @@ const AddCouponForm = () => {
 
       // Make API call
       const response = await axios.post(
-        'http://localhost:8000/api/coupon/savecoupon',
+        `${BACKEND_API_ENDPOINT}/api/coupon/savecoupon`,
         submissionData,
         {
           headers: {

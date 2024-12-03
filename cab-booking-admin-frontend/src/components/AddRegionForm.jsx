@@ -3,7 +3,7 @@ import MapComponent from "./MapComponent";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
-
+import BACKEND_API_ENDPOINT from '../utils/constants.js'
 
 const AddRegionForm = () => {
 
@@ -52,7 +52,7 @@ const AddRegionForm = () => {
     const payload = { ...formData, coordinates: polygonCoordinates };
     
     try {
-      const res = await axios.post(`http://localhost:8000/api/region/saveregion`, payload, {
+      const res = await axios.post(`${BACKEND_API_ENDPOINT}/api/region/saveregion`, payload, {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
       });

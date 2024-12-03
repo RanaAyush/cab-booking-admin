@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import RegionDropdown from "./RegionDropdown";
 import {useNavigate} from 'react-router-dom'
+import BACKEND_API_ENDPOINT from '../utils/constants.js'
 
 const AddServiceForm = () => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const AddServiceForm = () => {
         // Fetch regions from the backend
         const fetchRegions = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/api/region/getregioncity'); 
+                const response = await axios.get(`${BACKEND_API_ENDPOINT}/api/region/getregioncity`); 
                 if (response.data.success) {
                     setRegions(response.data.data);
                 } else {
@@ -54,7 +55,7 @@ const AddServiceForm = () => {
     setIsLoading(true); 
 
     try {
-      const res = await axios.post(`http://localhost:8000/api/service/createservice`, formData, {
+      const res = await axios.post(`${BACKEND_API_ENDPOINT}/api/service/createservice`, formData, {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
       });

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
+import BACKEND_API_ENDPOINT from '../utils/constants.js'
 
 const AddPushNotificationForm = () => {
     const [form, setForm] = useState({
@@ -60,7 +61,7 @@ const AddPushNotificationForm = () => {
         e.preventDefault();
         try {
             const response = await axios.post(
-                'http://localhost:8000/api/pushnotification/create',
+                `${BACKEND_API_ENDPOINT}/api/pushnotification/create`,
                 form,
                 {
                   headers: {

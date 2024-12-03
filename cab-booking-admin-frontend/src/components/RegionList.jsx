@@ -3,6 +3,7 @@ import { MdDelete } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import axios from 'axios'
 import ToogleButton from './ToogleButton.jsx';
+import BACKEND_API_ENDPOINT from '../utils/constants.js'
 
 const RegionList = () => {
     
@@ -10,7 +11,7 @@ const RegionList = () => {
     useEffect(() => {
         const fetchRegions = async () => {
             try {
-                const response = await axios.get(`http://localhost:8000/api/region/getallregions`, {
+                const response = await axios.get(`${BACKEND_API_ENDPOINT}/api/region/getallregions`, {
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -59,7 +60,7 @@ const RegionList = () => {
 
     const handleConfirm = async (e)=>{
         try {
-            const response = await axios.delete(`http://localhost:8000/api/region/deleteregion`, {
+            const response = await axios.delete(`${BACKEND_API_ENDPOINT}/api/region/deleteregion`, {
                 data: { _id: selectedRegionDetails._id },
                 headers: {
                     'Content-Type': 'application/json',
@@ -83,7 +84,7 @@ const RegionList = () => {
     const handleRegionStatusChange = async (regionId, newStatus) => {
         
         try {
-          const response = await axios.post(`http://localhost:8000/api/region/update/${regionId}`, { Status: newStatus }, {
+          const response = await axios.post(`${BACKEND_API_ENDPOINT}/api/region/update/${regionId}`, { Status: newStatus }, {
             headers: {
               'Content-Type': 'application/json',
             },

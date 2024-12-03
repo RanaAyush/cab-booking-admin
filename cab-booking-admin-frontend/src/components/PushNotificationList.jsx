@@ -3,6 +3,7 @@ import { IoSend } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import axios from 'axios'
+import BACKEND_API_ENDPOINT from '../utils/constants.js'
 
 const PushNotificationList = () => {
     // Sample data
@@ -11,7 +12,7 @@ const PushNotificationList = () => {
     useEffect(() => {
         const fetchNotifications = async () => {
             try {
-                const response = await axios.get(`http://localhost:8000/api/pushnotification/getallnotification`, {
+                const response = await axios.get(`${BACKEND_API_ENDPOINT}/api/pushnotification/getallnotification`, {
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -51,7 +52,7 @@ const PushNotificationList = () => {
 
     const handleDelete = async (e)=>{
         try {
-            const response = await axios.delete(`http://localhost:8000/api/pushnotification/delete`, {
+            const response = await axios.delete(`${BACKEND_API_ENDPOINT}/api/pushnotification/delete`, {
                 data: { _id: selectedNotificationDetails._id },
                 headers: {
                     'Content-Type': 'application/json',

@@ -3,13 +3,14 @@ import { FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import BACKEND_API_ENDPOINT from '../utils/constants.js'
 
 const ServiceList = () => {
 
     useEffect(() => {
         const fetchServices = async () => {
             try {
-                const response = await axios.get(`http://localhost:8000/api/service/getallservice`, {
+                const response = await axios.get(`${BACKEND_API_ENDPOINT}/api/service/getallservice`, {
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -51,7 +52,7 @@ const ServiceList = () => {
 
     const handleConfirm = async (e)=>{
         try {
-            const response = await axios.delete(`http://localhost:8000/api/service/deleteservice`, {
+            const response = await axios.delete(`${BACKEND_API_ENDPOINT}/api/service/deleteservice`, {
                 data: { _id: selectedServiceDetails._id },
                 headers: {
                     'Content-Type': 'application/json',

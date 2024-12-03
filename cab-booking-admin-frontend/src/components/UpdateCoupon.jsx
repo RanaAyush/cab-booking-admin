@@ -4,6 +4,7 @@ import axios from "axios";
 import {useNavigate, useParams} from 'react-router-dom'
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
+import BACKEND_API_ENDPOINT from '../utils/constants.js'
 
 const UpdateCoupon = () => {
     const { id } = useParams();
@@ -30,7 +31,7 @@ const UpdateCoupon = () => {
     // Fetch regions from the backend
     const fetchRegions = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/region/getregioncity');
+        const response = await axios.get(`${BACKEND_API_ENDPOINT}/api/region/getregioncity`);
         if (response.data.success) {
           setRegions(response.data.data);
         } else {
@@ -49,7 +50,7 @@ const UpdateCoupon = () => {
                
         try {
             const response = await axios.post(
-                `http://localhost:8000/api/coupon/getcouponbyid`,
+                `${BACKEND_API_ENDPOINT}/api/coupon/getcouponbyid`,
                 { _id: id },
                 {
                     headers: {

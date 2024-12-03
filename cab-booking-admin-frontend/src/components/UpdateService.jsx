@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import RegionDropdown from "./RegionDropdown";
+import BACKEND_API_ENDPOINT from '../utils/constants.js'
 
 const UpdateService = () => {
     const { id } = useParams();
@@ -31,7 +32,7 @@ const UpdateService = () => {
         const fetchService = async () => {
             try {
                 const response = await axios.post(
-                    `http://localhost:8000/api/service/getservicebyid`,
+                    `${BACKEND_API_ENDPOINT}/api/service/getservicebyid`,
                     { _id: id }, // Pass the data directly as the second argument
                     {
                         headers: {
@@ -64,7 +65,7 @@ const UpdateService = () => {
         // Fetch regions from the backend
         const fetchRegions = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/api/region/getregioncity');
+                const response = await axios.get(`${BACKEND_API_ENDPOINT}/api/region/getregioncity`);
                 if (response.data.success) {
                     setRegions(response.data.data);
                 } else {
@@ -88,7 +89,7 @@ const UpdateService = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`http://localhost:8000/api/service/updateservice/${id}`, formData, {
+            const res = await axios.post(`${BACKEND_API_ENDPOINT}/api/service/updateservice/${id}`, formData, {
                 headers: { "Content-Type": "application/json" },
                 withCredentials: true,
             });

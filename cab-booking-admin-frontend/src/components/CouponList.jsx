@@ -3,6 +3,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import BACKEND_API_ENDPOINT from '../utils/constants.js'
 
 const CouponList = () => {
     // Sample data
@@ -11,7 +12,7 @@ const CouponList = () => {
     useEffect(() => {
         const fetchCoupons = async () => {
             try {
-                const response = await axios.get(`http://localhost:8000/api/coupon/getallcoupons`, {
+                const response = await axios.get(`${BACKEND_API_ENDPOINT}/api/coupon/getallcoupons`, {
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -71,7 +72,7 @@ const CouponList = () => {
 
     const handleConfirm = async (e)=>{
         try {
-            const response = await axios.delete(`http://localhost:8000/api/coupon/deletecoupon`, {
+            const response = await axios.delete(`${BACKEND_API_ENDPOINT}/api/coupon/deletecoupon`, {
                 data: { _id: selectedCouponDetails._id },
                 headers: {
                     'Content-Type': 'application/json',

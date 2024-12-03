@@ -3,6 +3,7 @@ import ReactQuill from "react-quill";
 import Sidebar from '../components/Sidebar'
 import Navbar from '../components/Navbar'
 import axios from "axios";
+import BACKEND_API_ENDPOINT from '../utils/constants.js'
 
 const PrivacyPolicy = () => {
     const [content, setContent] = useState("");
@@ -12,7 +13,7 @@ const PrivacyPolicy = () => {
                    
             try {
                 const response = await axios.get(
-                    `http://localhost:8000/api/privacypolicy/getpolicy`,
+                    `${BACKEND_API_ENDPOINT}/api/privacypolicy/getpolicy`,
                     {
                         headers: {
                             'Content-Type': 'application/json',
@@ -36,7 +37,7 @@ const PrivacyPolicy = () => {
         e.preventDefault();
         try {
             const payload = {policy:content}
-            const res = await axios.post(`http://localhost:8000/api/privacypolicy/savepolicy`, payload, {
+            const res = await axios.post(`${BACKEND_API_ENDPOINT}/api/privacypolicy/savepolicy`, payload, {
                 headers: { "Content-Type": "application/json" },
                 withCredentials: true,
               });

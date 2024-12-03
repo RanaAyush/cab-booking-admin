@@ -4,6 +4,7 @@ import "react-quill/dist/quill.snow.css";
 import Sidebar from '../components/Sidebar'
 import Navbar from '../components/Navbar'
 import axios from 'axios'
+import BACKEND_API_ENDPOINT from '../utils/constants.js'
 
 const Terms = () => {
     const [content, setContent] = useState("");
@@ -13,7 +14,7 @@ const Terms = () => {
                    
             try {
                 const response = await axios.get(
-                    `http://localhost:8000/api/terms/getterms`,
+                    `${BACKEND_API_ENDPOINT}/api/terms/getterms`,
                     {
                         headers: {
                             'Content-Type': 'application/json',
@@ -36,7 +37,7 @@ const Terms = () => {
         e.preventDefault();
         try {
             const payload = {terms:content}
-            const res = await axios.post(`http://localhost:8000/api/terms/saveterms`, payload, {
+            const res = await axios.post(`${BACKEND_API_ENDPOINT}/api/terms/saveterms`, payload, {
                 headers: { "Content-Type": "application/json" },
                 withCredentials: true,
               });
