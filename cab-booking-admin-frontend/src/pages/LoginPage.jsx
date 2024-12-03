@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import carImage from '../assets/car.png'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import BACKEND_API_ENDPOINT from '../utils/constants.js'
 
 const SignupPage = () => {
     const [input, setInput] = useState({
@@ -16,7 +17,7 @@ const SignupPage = () => {
     const handleSignup = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post('http://localhost:8000/api/admin/login', input, {
+            const res = await axios.post(`${BACKEND_API_ENDPOINT}/api/admin/login`, input, {
                 headers: {
                     "Content-Type": "application/json"
                 },
