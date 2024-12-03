@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const UpdateComplaintForm = ({id}) => {
+  console.log(id);
+  
+  
   const [formData, setFormData] = useState({
     subject: "Rude Behaviour",
     rideRequest: "#97",
@@ -81,7 +84,6 @@ const UpdateComplaintForm = ({id}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Updated Complaint Data:", formData);
     navigate("/complaints/resolved");
     // Add your API call or other logic here
   };

@@ -2,7 +2,8 @@ import React from 'react'
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
 import { useParams } from "react-router-dom";
-import UpdateComplaintForm from '../components/UpdateComplaintform';
+import UpdateComplaintForm from '../components/UpdateComplaintForm.jsx'
+
 
 
 const UpdateComplaint = () => {
