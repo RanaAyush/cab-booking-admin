@@ -1,6 +1,10 @@
 import mongoose from 'mongoose';
 
 const PushNotificationSchema = new mongoose.Schema({
+    initiated:{
+        type:Boolean,
+        default:false
+    },
     customer: {
         type: Boolean,
         default: false

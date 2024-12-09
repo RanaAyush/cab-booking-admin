@@ -112,3 +112,43 @@ export const deleteNotification = async (req, res) => {
         });
     }
 };
+
+export const updateNotification = async(req,res)=>{
+    try {
+        const { id } = req.params;
+
+        const existingNotification = await PushNotification.findById(id);
+        if (!existingNotification) {
+            return res.status(404).json({
+                message: "existingNotification not found",
+                success: false,
+            });
+        }
+
+        // Update the service
+        const updatedNotification = await PushNotification.findByIdAndUpdate(
+            id,
+            {
+                initiated:true,
+            },
+            { 
+                new: true,  // Return the updated document
+                runValidators: true  // Run model validations
+            }
+        );
+
+        // Respond with the updated service
+        return res.status(200).json({
+            message: "Notification updated successfully",
+            success: true,
+        });
+
+    } catch (error) {
+        console.error('Error updating Notification:', error);
+        return res.status(500).json({
+            message: "Internal server error",
+            success: false,
+        });
+    }
+    
+}

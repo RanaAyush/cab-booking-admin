@@ -12,8 +12,7 @@ import Service from './pages/Service.jsx';
 import CreateService from './pages/CreateService.jsx';
 import Driver from './pages/Driver.jsx';
 import PendingDriver from './pages/PendingDriver.jsx';
-// import DriverDocs from './pages/DriverDocs.jsx';
-// import CreateDriverDocs from './pages/CreateDriverDocs.jsx';
+
 import PushNotification from './pages/PushNotification.jsx';
 import CreatePushNotification from './pages/CreatePushNotification.jsx';
 import Complaint from './pages/Complaint.jsx';
@@ -21,8 +20,8 @@ import RideRequest from './pages/RideRequest.jsx';
 import Terms from './pages/Terms.jsx';
 import PrivacyPolicy from './pages/PrivacyPolicy.jsx';
 import Report from './pages/Report.jsx';
-import DriverReport from './pages/DriverReport.jsx';
-import ServiceWiseReport from './pages/ServiceWiseReport.jsx';
+// import DriverReport from './pages/DriverReport.jsx';
+// import ServiceWiseReport from './pages/ServiceWiseReport.jsx';
 import Roles from './pages/Roles.jsx';
 import Permissions from './pages/Permissions.jsx';
 import { LoadScript } from '@react-google-maps/api'
@@ -31,6 +30,8 @@ import UpdateCoupon from './components/UpdateCoupon.jsx';
 import UpdateComplaint from './pages/UpdateComplaint.jsx';
 import NotFound from './pages/NotFound.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
+import Withdraw from './pages/Withdraw.jsx';
+import UpdateDriverDocs from './pages/UpdateDriverDocs.jsx';
 
 const libraries = ["places", "drawing"];
 
@@ -60,8 +61,8 @@ function App() {
           <Route path="/service/update/:id" element={<ProtectedRoute><UpdateService /></ProtectedRoute>} />
           <Route path="/driver" element={<ProtectedRoute><Driver /></ProtectedRoute>} />
           <Route path="/driver/pending" element={<ProtectedRoute><PendingDriver /></ProtectedRoute>} />
-          {/* <Route path="/driver/docs" element={<DriverDocs/>}/> */}
-          {/* <Route path="/driver/docs/create" element={<CreateDriverDocs/>}/> */}
+          <Route path="/driver/update/:id" element={<ProtectedRoute><UpdateDriverDocs/></ProtectedRoute>} />
+          
           <Route path="/pushnotification" element={<ProtectedRoute><PushNotification /></ProtectedRoute>} />
           <Route path="/pushnotification/create" element={<ProtectedRoute><CreatePushNotification /></ProtectedRoute>} />
           <Route path="/complaints/:status" element={<ProtectedRoute><Complaint /></ProtectedRoute>} />
@@ -70,8 +71,9 @@ function App() {
           <Route path="/terms" element={<ProtectedRoute><Terms /></ProtectedRoute>} />
           <Route path="/privacypolicy" element={<ProtectedRoute><PrivacyPolicy /></ProtectedRoute>} />
           <Route path="/report" element={<ProtectedRoute><Report /></ProtectedRoute>} />
-          <Route path="/report/driver" element={<ProtectedRoute><DriverReport /></ProtectedRoute>} />
-          <Route path="/report/servicewise" element={<ProtectedRoute><ServiceWiseReport /></ProtectedRoute>} />
+          {/* <Route path="/report/driver" element={<ProtectedRoute><DriverReport /></ProtectedRoute>} />
+          <Route path="/report/servicewise" element={<ProtectedRoute><ServiceWiseReport /></ProtectedRoute>} /> */}
+          <Route path="/report/withdraw" element={<ProtectedRoute><Withdraw /></ProtectedRoute>} />
           <Route path="/role" element={<ProtectedRoute><Roles /></ProtectedRoute>} />
           <Route path="/permission" element={<ProtectedRoute><Permissions /></ProtectedRoute>} />
           <Route path="*" element={<ProtectedRoute><NotFound /></ProtectedRoute>} />

@@ -89,6 +89,20 @@ export const saveCoupon = async (req, res) => {
     }
 };
 
+export const getCouponCount = async (req, res) => {
+    try {
+        const CouponCount = await Coupon.countDocuments({});
+
+        return res.status(200).json({
+            success: true,
+            message: 'Coupon count fetched successfully',
+            count: CouponCount,
+        });
+    } catch (err) {
+        return res.status(500).json({ error: 'Failed to fetch Coupon count' });
+    }
+};
+
 export const getAllCoupons = async (req, res) => {
     try {
         const coupon = await Coupon.find(); // Fetch all regions

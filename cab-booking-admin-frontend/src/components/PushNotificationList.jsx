@@ -50,7 +50,7 @@ const PushNotificationList = () => {
     const openDelete = () => setIsDeleteOpen(true);
     const closeDelete = () => setIsDeleteOpen(false);
 
-    const handleDelete = async (e)=>{
+    const handleDelete = async (e) => {
         try {
             const response = await axios.delete(`${BACKEND_API_ENDPOINT}/api/pushnotification/delete`, {
                 data: { _id: selectedNotificationDetails._id },
@@ -60,16 +60,36 @@ const PushNotificationList = () => {
                 withCredentials: true,
             });
             if (response.data.success) {
-                setNotifications(prevNotificatoins => 
+                setNotifications(prevNotificatoins =>
                     prevNotificatoins.filter(notificaiton => notificaiton._id !== selectedNotificationDetails._id)
                 );
             } else {
                 alert('Failed to fetch notificaiton');
             }
-        }catch (error) {
+        } catch (error) {
             alert('An error occurred while fetching notificaiton');
         } finally {
             closeDelete();
+        }
+    }
+    const initiateNotifiaction = async (e) => {
+        try {
+
+            const response = await axios.post(`${BACKEND_API_ENDPOINT}/api/pushnotification/update/${selectedNotificationDetails._id}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true,
+            });
+            if (response.data.success) {
+                alert("Notification initiated successfully");
+            } else {
+                alert('Failed to initiate notificaiton');
+            }
+        } catch (error) {
+            alert('An error occurred while fetching notificaiton');
+        } finally {
+            closeConfirm();
         }
     }
 
@@ -132,7 +152,7 @@ const PushNotificationList = () => {
                                     <h3 className="text-lg font-semibold border-b pb-2">Details</h3>
                                     <ul className="space-y-1 mt-2 grid grid-cols-2">
                                         <li><strong>Title:</strong> {selectedNotificationDetails.title}</li>
-                                        <li><strong>Notification For:</strong> {(selectedNotificationDetails.customer && selectedNotificationDetails.driver)?"Both":(selectedNotificationDetails.driver)?"Driver":"Customer"}</li>
+                                        <li><strong>Notification For:</strong> {(selectedNotificationDetails.customer && selectedNotificationDetails.driver) ? "Both" : (selectedNotificationDetails.driver) ? "Driver" : "Customer"}</li>
                                         <li><strong>Created Date:</strong> {selectedNotificationDetails.createdAt.split('T')[0]}</li>
                                         <li><strong>Scheduled Date:</strong> {(selectedNotificationDetails.schedule.enabled) ? `${selectedNotificationDetails.schedule.details.date.split('T')[0]}` : "not scheduled"}</li>
                                         <li><strong>Is Scheduled:</strong> {(selectedNotificationDetails.schedule.enabled) ? 'True' : 'False'}</li>
@@ -180,7 +200,7 @@ const PushNotificationList = () => {
                         <div className="flex justify-end p-4 border-t gap-2">
                             <button
                                 className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                                onClick={closeConfirm}
+                                onClick={initiateNotifiaction}
                             >
                                 Send
                             </button>
@@ -272,8 +292,10 @@ const PushNotificationList = () => {
                             <tr key={index} className="hover:bg-gray-50 text-center">
                                 <td className="px-2 py-4 border-b-2 border-blue-200 ">{(currentPage - 1) * entriesPerPage + index + 1}</td>
                                 <td className="px-2 py-4 border-b-2 border-blue-200 ">{Notification.title}</td>
-                                <td className="px-2 py-4 border-b-2 border-blue-200 ">{Notification.message}</td>
-                                <td className={`px-2 py-4 border-b-2 border-blue-200 ${(Notification.curtomer && Notification.driver) ? 'text-cyan-400' : Notification.customer? 'text-gray-500' : 'text-blue-500'}`}>{(Notification.customer && Notification.driver)?"Both":(Notification.driver)?"Driver":"Customer"}</td>
+                                <td className="px-2 py-4 border-b-2 border-blue-200 ">{Notification.message.length > 30
+                                    ? Notification.message.slice(0, 30) + "...."
+                                    : Notification.message}</td>
+                                <td className={`px-2 py-4 border-b-2 border-blue-200 ${(Notification.curtomer && Notification.driver) ? 'text-cyan-400' : Notification.customer ? 'text-gray-500' : 'text-blue-500'}`}>{(Notification.customer && Notification.driver) ? "Both" : (Notification.driver) ? "Driver" : "Customer"}</td>
                                 <td className="px-2 py-4 border-b-2 border-blue-200 ">{Notification.createdAt}</td>
 
                                 <td className="px-2 py-4 border-b-2 border-blue-200 ">

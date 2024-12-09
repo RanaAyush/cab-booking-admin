@@ -44,7 +44,7 @@ const SignupPage = () => {
     return (
         <div className="flex items-center justify-center min-h-screen bg-[#f7f9ff]">
             <div className="bg-white p-4 rounded-lg shadow-lg w-[470px] h-[450px] flex items-center flex-col">
-                <div className='text-center text-2xl mb-2 max-w-20 rounded-full border-2 border-black p-1'><img src={carImage} alt="" /></div>
+                <div className='text-center text-2xl mb-2 max-w-24 rounded-full'><img src={carImage} alt="" className='rounded-[50%]' /></div>
                 <form onSubmit={handleSignup} className="w-full">
                     <h2 className="text-3xl font-semibold mb-2 text-center">Admin Sign In</h2>
                     <p className='text-center mb-6'>To Keep connected please login with your personal info.</p>

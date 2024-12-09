@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { Link } from 'react-router-dom';
+// import axios from 'axios'
+// import BACKEND_API_ENDPOINT from '../utils/constants.js'
 
 const ComplaintList = ({ status }) => {
-    const [filteredComplaints, setFilteredComplaints] = useState([]);
+    // const [filteredComplaints, setFilteredComplaints] = useState([]);
     // Sample data
     const complaints = [
         { id: 11, rideRequest: '144', driver: 'Hari Om Mishra', user: 'Spiderman', complaintBy: 'user', subject: 'Not happy', createdDate: 'October 10, 2024 6:16 AM', Status: 'resolved' },
@@ -21,12 +23,12 @@ const ComplaintList = ({ status }) => {
 
     ];
 
-    // const [coupons,setCoupons] = useState([]);
+    // const [complaints,setComplaints] = useState([]);
 
     // useEffect(() => {
-    //     const fetchCoupons = async () => {
+    //     const fetchComplaints = async () => {
     //         try {
-    //             const response = await axios.get(`http://localhost:8000/api/coupon/getallcoupons`, {
+    //             const response = await axios.get(`${BACKEND_API_ENDPOINT}/api/complaint/getallcomplaint`, {
     //                 headers: {
     //                     'Content-Type': 'application/json',
     //                 },
@@ -34,18 +36,18 @@ const ComplaintList = ({ status }) => {
     //             });
     //             if (response.data.success) {
 
-    //                 setCoupons(response.data.data);
+    //                 setComplaints(response.data.data);
 
     //             } else {
-    //                 alert('Failed to fetch regions');
+    //                 alert('Failed to fetch complaint');
     //             }
     //         } catch (error) {
-    //             console.error('Error fetching regions:', error);
-    //             alert('An error occurred while fetching regions');
+    //             console.error('Error fetching complaint:', error);
+    //             alert('An error occurred while fetching complaint');
     //         }
     //     };
 
-    //     fetchCoupons();
+    //     fetchComplaints();
     // }, []);
 
     const [selectedComplaintDetails, setSelectedComplaintDetails] = useState({});
@@ -55,10 +57,12 @@ const ComplaintList = ({ status }) => {
 
     useEffect(() => {
         const filtered = complaints.filter((complaint) => complaint.Status === status);
-        setFilteredComplaints(filtered);
-    }, [status]);
+        // setFilteredComplaints(filtered);
+        setUsers(filtered);
+        setCurrentPage(1);
+    }, [status,complaints]);
 
-    const [users, setUsers] = useState(filteredComplaints);
+    const [users, setUsers] = useState(complaints);
     const [currentPage, setCurrentPage] = useState(1);
     const [entriesPerPage, setEntriesPerPage] = useState(10);
     const [displayedUsers, setDisplayedUsers] = useState([]);
@@ -66,29 +70,25 @@ const ComplaintList = ({ status }) => {
     const handleConfirm = async (e) => {
 
         // try {
-        //     const response = await axios.delete(`http://localhost:8000/api/coupon/deletecoupon`, {
-        //         data: { _id: selectedCouponDetails._id },
+        //     const response = await axios.delete(`${BACKEND_API_ENDPOINT}/api/complaint/deletecomplaint`, {
+        //         data: { _id: selectedComplaintDetails._id },
         //         headers: {
         //             'Content-Type': 'application/json',
         //         },
         //         withCredentials: true,
         //     });
         //     if (response.data.success) {
-        //         setCoupons(prevCoupons => 
-        //             prevCoupons.filter(coupon => coupon._id !== selectedCouponDetails._id)
+        //         setComplaints(prevComplaints => 
+        //             prevComplaints.filter(complaint => complaint._id !== selectedComplaintDetails._id)
         //         );
         //     } else {
-        //         alert('Failed to fetch coupons');
+        //         alert('Failed to fetch complaint');
         //     }
         // }catch (error) {
-        //     alert('An error occurred while fetching coupons');
+        //     alert('An error occurred while fetching complaint');
         // } 
         closeConfirm();
     }
-
-    useEffect(() => {
-        setUsers(filteredComplaints);
-    }, [filteredComplaints]);
 
     useEffect(() => {
         // setUsers(coupons);

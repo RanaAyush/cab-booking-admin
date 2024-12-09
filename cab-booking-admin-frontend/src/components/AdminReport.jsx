@@ -16,6 +16,33 @@ const AdminReport = () => {
 
     ];
 
+    // const [reports, setReports] = useState([]);
+
+    // useEffect(() => {
+    //     const fetchReports = async () => {
+    //         try {
+    //             const response = await axios.get(`${BACKEND_API_ENDPOINT}/api/withdraw/getadminreports`, {
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                 },
+    //                 withCredentials: true,
+    //             });
+    //             if (response.data.success) {
+
+    //                 setReports(response.data.data);
+
+    //             } else {
+    //                 alert('Failed to fetch reports');
+    //             }
+    //         } catch (error) {
+    //             console.error('Error fetching reports:', error);
+    //             alert('An error occurred while fetching reports');
+    //         }
+    //     };
+
+    //     fetchReports();
+    // }, []);
+
     const [users, setUsers] = useState(reports);
     const [currentPage, setCurrentPage] = useState(1);
     const [entriesPerPage, setEntriesPerPage] = useState(10);

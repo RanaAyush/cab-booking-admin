@@ -1,57 +1,58 @@
 import React, { useState, useEffect } from 'react';
 import { BsFillEyeFill } from "react-icons/bs";
 import { FaFilter } from "react-icons/fa";
+import axios from 'axios'
+import BACKEND_API_ENDPOINT from '../utils/constants.js'
 
 const RideRequestList = ({ status }) => {
     // Sample data
-    const rideRequest = [
-        { id: 11, user: 'aalu tikki', requestedDriver: 'Hari chatni', driver: 'lal chatni', dateTime: 'October 10, 2024 6:16 AM', paymentMethod: 'cash', payment: 'paid', invoice: null, Status: 'completed' },
-        { id: 12, user: 'aalu tikki', requestedDriver: 'Hari chatni', driver: 'lal chatni', dateTime: 'October 11, 2024 6:16 AM', paymentMethod: 'cash', payment: 'paid', invoice: null, Status: 'new' },
-        { id: 13, user: 'aalu tikki', requestedDriver: 'Hari chatni', driver: 'lal chatni', dateTime: 'October 12, 2024 6:16 AM', paymentMethod: 'cash', payment: 'paid', invoice: null, Status: 'cancelled' },
-        { id: 14, user: 'aalu tikki', requestedDriver: 'Hari chatni', driver: 'lal chatni', dateTime: 'October 13, 2024 6:16 AM', paymentMethod: 'cash', payment: 'paid', invoice: null, Status: 'cancelled' },
-        { id: 15, user: 'aalu tikki', requestedDriver: 'Hari chatni', driver: 'lal chatni', dateTime: 'October 14, 2024 6:16 AM', paymentMethod: 'cash', payment: 'paid', invoice: null, Status: 'new' },
-        { id: 16, user: 'aalu tikki', requestedDriver: 'Hari chatni', driver: 'lal chatni', dateTime: 'October 16, 2024 6:16 AM', paymentMethod: 'cash', payment: 'paid', invoice: null, Status: 'new' },
-        { id: 17, user: 'aalu tikki', requestedDriver: 'Hari chatni', driver: 'lal chatni', dateTime: 'October 10, 2024 6:16 AM', paymentMethod: 'cash', payment: 'paid', invoice: null, Status: 'new' },
-        { id: 18, user: 'aalu tikki', requestedDriver: 'Hari chatni', driver: 'lal chatni', dateTime: 'October 21, 2024 6:16 AM', paymentMethod: 'cash', payment: 'paid', invoice: null, Status: 'completed' },
-        { id: 19, user: 'aalu tikki', requestedDriver: 'Hari chatni', driver: 'lal chatni', dateTime: 'October 10, 2024 6:16 AM', paymentMethod: 'cash', payment: 'paid', invoice: null, Status: 'completed' },
-        { id: 20, user: 'aalu tikki', requestedDriver: 'Hari chatni', driver: 'lal chatni', dateTime: 'October 10, 2024 6:16 AM', paymentMethod: 'cash', payment: 'paid', invoice: null, Status: 'pending' },
+    // const rideRequest = [
+    //     { id: 11, user: 'aalu tikki', requestedDriver: 'Hari chatni', driver: 'lal chatni', dateTime: 'October 10, 2024 6:16 AM', paymentMethod: 'cash', payment: 'paid', invoice: null, Status: 'completed' },
+    //     { id: 12, user: 'aalu tikki', requestedDriver: 'Hari chatni', driver: 'lal chatni', dateTime: 'October 11, 2024 6:16 AM', paymentMethod: 'cash', payment: 'paid', invoice: null, Status: 'new' },
+    //     { id: 13, user: 'aalu tikki', requestedDriver: 'Hari chatni', driver: 'lal chatni', dateTime: 'October 12, 2024 6:16 AM', paymentMethod: 'cash', payment: 'paid', invoice: null, Status: 'cancelled' },
+    //     { id: 14, user: 'aalu tikki', requestedDriver: 'Hari chatni', driver: 'lal chatni', dateTime: 'October 13, 2024 6:16 AM', paymentMethod: 'cash', payment: 'paid', invoice: null, Status: 'cancelled' },
+    //     { id: 15, user: 'aalu tikki', requestedDriver: 'Hari chatni', driver: 'lal chatni', dateTime: 'October 14, 2024 6:16 AM', paymentMethod: 'cash', payment: 'paid', invoice: null, Status: 'new' },
+    //     { id: 16, user: 'aalu tikki', requestedDriver: 'Hari chatni', driver: 'lal chatni', dateTime: 'October 16, 2024 6:16 AM', paymentMethod: 'cash', payment: 'paid', invoice: null, Status: 'new' },
+    //     { id: 17, user: 'aalu tikki', requestedDriver: 'Hari chatni', driver: 'lal chatni', dateTime: 'October 10, 2024 6:16 AM', paymentMethod: 'cash', payment: 'paid', invoice: null, Status: 'new' },
+    //     { id: 18, user: 'aalu tikki', requestedDriver: 'Hari chatni', driver: 'lal chatni', dateTime: 'October 21, 2024 6:16 AM', paymentMethod: 'cash', payment: 'paid', invoice: null, Status: 'completed' },
+    //     { id: 19, user: 'aalu tikki', requestedDriver: 'Hari chatni', driver: 'lal chatni', dateTime: 'October 10, 2024 6:16 AM', paymentMethod: 'cash', payment: 'paid', invoice: null, Status: 'completed' },
+    //     { id: 20, user: 'aalu tikki', requestedDriver: 'Hari chatni', driver: 'lal chatni', dateTime: 'October 10, 2024 6:16 AM', paymentMethod: 'cash', payment: 'paid', invoice: null, Status: 'pending' },
 
-    ];
+    // ];
 
-    // const [regions, setRegions] = useState([]);
-    // useEffect(() => {
-    //     const fetchRegions = async () => {
-    //         try {
-    //             const response = await axios.get(`http://localhost:8000/api/region/getallregions`, {
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                 },
-    //                 withCredentials: true,
-    //             });
-    //             if (response.data.success) {
+    const [rideRequest, setRideRequest] = useState([]);
 
-    //                 setRegions(response.data.data);
+    useEffect(() => {
+        const fetchRides = async () => {
+            try {
+                const response = await axios.get(`${BACKEND_API_ENDPOINT}/api/rides/getallrides`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    withCredentials: true,
+                });
+                if (response.data.success) {
 
-    //             } else {
-    //                 alert('Failed to fetch regions');
-    //             }
-    //         } catch (error) {
-    //             console.error('Error fetching regions:', error);
-    //             alert('An error occurred while fetching regions');
-    //         } finally {
-    //             setLoading(false);
-    //         }
-    //     };
+                    setRideRequest(response.data.data);
 
-    //     fetchRegions();
-    // }, []);
+                } else {
+                    alert('Failed to fetch rides');
+                }
+            } catch (error) {
+                console.error('Error fetching Rides:', error);
+                alert('An error occurred while fetching rides');
+            }
+        };
+
+        fetchRides();
+    }, []);
 
     const [isRideOpen, setIsRideOpen] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedRideDetails, setSelectedRideDetails] = useState({});
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
-    const [users, setUsers] = useState([]);
+    const [users, setUsers] = useState(rideRequest);
     const [currentPage, setCurrentPage] = useState(1);
     const [entriesPerPage, setEntriesPerPage] = useState(10);
     const [displayedUsers, setDisplayedUsers] = useState([]);
@@ -62,24 +63,20 @@ const RideRequestList = ({ status }) => {
     const openRide = () => setIsRideOpen(true);
     const closeRide = () => setIsRideOpen(false);
 
-    // useEffect(() => {
-    //     setUsers(regions);
-    // }, [regions]);
-
     const applyFilter = () =>{
         let filteredUsers = rideRequest;
 
         // Apply start date filter
         if (startDate) {
             filteredUsers = filteredUsers.filter(
-                (request) => new Date(request.dateTime) >= new Date(startDate)
+                (request) => new Date(request.time.split("T")[0]) >= new Date(startDate)
             );
         }
 
         // Apply end date filter
         if (endDate) {
             filteredUsers = filteredUsers.filter(
-                (request) => new Date(request.dateTime) <= new Date(endDate)
+                (request) => new Date(request.time.split("T")[0]) <= new Date(endDate)
             );
         }
 
@@ -90,13 +87,10 @@ const RideRequestList = ({ status }) => {
 
 
     useEffect(() => {
-        if (status === "all") {
-            setUsers(rideRequest);
-        } else {
-            const filtered = rideRequest.filter((request) => request.Status === status);
-            setUsers(filtered);
-        }
-    }, [status]);
+        const filtered = status === "all" ? rideRequest : rideRequest.filter((request) => request.status === status);
+        setUsers(filtered);
+        setCurrentPage(1); // Reset to first page when filtering
+    }, [status, rideRequest]);
 
 
     useEffect(() => {
@@ -156,15 +150,28 @@ const RideRequestList = ({ status }) => {
                                 <div className=' mb-6'>
                                     <h3 className="text-lg font-semibold border-b pb-2">Details</h3>
                                     <ul className="space-y-1 mt-2 grid grid-cols-2 gap-x-10">
-                                        <li><strong>ID:</strong> {selectedRideDetails.id}</li>
-                                        <li><strong>Customer:</strong> {selectedRideDetails.user}</li>
-                                        <li><strong>Requested Driver:</strong> {selectedRideDetails.requestedDriver}</li>
-                                        <li><strong>Driver:</strong> {selectedRideDetails.driver}</li>
-                                        <li><strong>Payment Method:</strong> {selectedRideDetails.paymentMethod}</li>
-                                        <li><strong>Payment :</strong> {selectedRideDetails.payment}</li>
-                                        <li><strong>Invoice :</strong> {selectedRideDetails.Invoice}</li>
-                                        <li><strong>Status :</strong> {selectedRideDetails.Status}</li>
+                                        <li><strong>ID :</strong> {selectedRideDetails._id}</li>
+                                        <li><strong>Customer :</strong> {selectedRideDetails.userName}</li>
+                                    
+                                        <li><strong>Driver :</strong> {selectedRideDetails.driverName}</li>
+                                        <li><strong>Date :</strong> {selectedRideDetails.createdAt.split("T")[0]}</li>
+                                        <li><strong>Time :</strong> {selectedRideDetails.createdAt.split("T")[1]}</li>
+                                        <li><strong>Customer Address :</strong> {selectedRideDetails.currentAddress}</li>
+                                        <li><strong>Destination Address :</strong> {selectedRideDetails.destinationAddress}</li>
+                                        {/* <li><strong>Invoice :</strong> {selectedRideDetails.Invoice}</li> */}
+                                        <li><strong>Status :</strong> {selectedRideDetails.status}</li>
                                     </ul>
+                                    <h3 className='text-lg font-semibold border-b pb-2 mt-2'>Coordinates</h3>
+                                    <div className='space-y-1 mt-2 text-gray-400'>
+                                        <div> <p>Customer Coordinates</p>
+                                            <span>Latitute : {selectedRideDetails.currentLat} </span>
+                                            <span>Longitude : {selectedRideDetails.currentLng}</span>
+                                        </div>
+                                        <div><p>Destination Coordinates</p>
+                                            <span>Latitute : {selectedRideDetails.destLat} </span>
+                                            <span>Longitude : {selectedRideDetails.destLng}</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -271,30 +278,34 @@ const RideRequestList = ({ status }) => {
                     <thead>
                         <tr className="p-2">
                             <th className="py-6 px-2 border-b-2 border-blue-200">No</th>
-                            <th className="py-6 px-2 border-b-2 border-blue-200">User</th>
-                            <th className="py-6 px-2 border-b-2 border-blue-200">Requested Driver</th>
+                            <th className="py-6 px-2 border-b-2 border-blue-200">Customer</th>
+                            {/* <th className="py-6 px-2 border-b-2 border-blue-200">Requested Driver</th> */}
                             <th className="py-6 px-2 border-b-2 border-blue-200">Driver</th>
-                            <th className="py-6 px-2 border-b-2 border-blue-200">Date Time</th>
-                            <th className="py-6 px-2 border-b-2 border-blue-200">Payemnt Method</th>
-                            <th className="py-6 px-2 border-b-2 border-blue-200">Payemnt</th>
-                            <th className="py-6 px-2 border-b-2 border-blue-200">Invoice</th>
+                            <th className="py-6 px-2 border-b-2 border-blue-200">Date</th>
+                            <th className="py-6 px-2 border-b-2 border-blue-200">Time</th>
+                            {/* <th className="py-6 px-2 border-b-2 border-blue-200">Payemnt Method</th> */}
+                            {/* <th className="py-6 px-2 border-b-2 border-blue-200">Payemnt</th> */}
+                            {/* <th className="py-6 px-2 border-b-2 border-blue-200">Invoice</th> */}
+                            <th className="py-6 px-2 border-b-2 border-blue-200">Customer Address</th>
+                            <th className="py-6 px-2 border-b-2 border-blue-200">Destination Address</th>
                             <th className="py-6 px-2 border-b-2 border-blue-200">Status</th>
                             <th className="py-6 px-2 border-b-2 border-blue-200">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {displayedUsers.map((request, index) => (
-                            <tr key={request.id} className="hover:bg-gray-50 text-center">
+                            <tr key={request._id} className="hover:bg-gray-50 text-center">
                                 <td className="px-1 py-4 border-b-2 border-blue-200 ">{(currentPage - 1) * entriesPerPage + index + 1}</td>
-                                <td className="px-1 py-4 border-b-2 border-blue-200 ">{request.user}</td>
-                                <td className="px-1 py-4 border-b-2 border-blue-200 ">{request.requestedDriver}</td>
-                                <td className="px-1 py-4 border-b-2 border-blue-200 ">{request.driver}</td>
-                                <td className="px-1 py-4 border-b-2 border-blue-200 ">{request.dateTime}</td>
-                                <td className="px-1 py-4 border-b-2 border-blue-200 ">{request.paymentMethod}</td>
-                                <td className="px-1 py-4 border-b-2 border-blue-200 ">{request.payment}</td>
-                                <td className="px-1 py-4 border-b-2 border-blue-200 ">{request.invoice}</td>
+                                <td className="px-1 py-4 border-b-2 border-blue-200 ">{request.userName}</td>
+                                <td className="px-1 py-4 border-b-2 border-blue-200 ">{request.driverName}</td>
+                                <td className="px-1 py-4 border-b-2 border-blue-200 ">{request.createdAt.split("T")[0]}</td>
+                                <td className="px-1 py-4 border-b-2 border-blue-200 ">{request.createdAt.split("T")[1].split(".")[0]}</td>
+                                <td className="px-1 py-4 border-b-2 border-blue-200 ">{request.currentAddress}</td>
+                                <td className="px-1 py-4 border-b-2 border-blue-200 ">{request.destinationAddress}</td>
+                                {/* <td className="px-1 py-4 border-b-2 border-blue-200 ">{request.payment}</td>
+                                <td className="px-1 py-4 border-b-2 border-blue-200 ">{request.invoice}</td> */}
 
-                                <td className={`px-1 py-4 border-b-2 border-blue-200 ${request.Status === 'cancelled' ? 'text-red-500' : request.Status === 'new' ? 'text-blue-500' : request.Status === 'pending' ? 'text-orange-400' : 'text-green-500'}`}>{request.Status}</td>
+                                <td className={`px-1 py-4 border-b-2 border-blue-200 ${request.status === 'Cancelled' ? 'text-red-500' : request.status === 'booked' ? 'text-blue-500' : 'text-green-500'}`}>{request.status}</td>
 
                                 <td className="px-1 py-4 border-b-2 border-blue-200 ">
                                     <button className="text-blue-600 mx-1 font-semibold text-xl" onClick={()=>{

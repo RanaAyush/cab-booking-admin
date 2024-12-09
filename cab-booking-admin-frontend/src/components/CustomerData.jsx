@@ -1,37 +1,54 @@
 import React, { useState, useEffect } from 'react';
-import { FaRegEdit } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
+import { BsFillEyeFill } from "react-icons/bs";
+import axios from 'axios'
+import BACKEND_API_ENDPOINT from '../utils/constants.js'
 
 const CustomerData = () => {
     // Sample data
-    const data = [
-        { id: 1, name: 'Jack Sparrow', email: 'jack@gmail.com', contact: '1254567890', lastActive: 'November 13, 2024 7:26 AM', appVersion: '-', createdDate: 'November 13, 2024 7:25 AM', status: 'Active' },
-        { id: 2, name: 'Herak Shaabe', email: 'herakshaabe@gmail.com', contact: '+914554667755', lastActive: '-', appVersion: '-', createdDate: 'November 13, 2024 3:28 AM', status: 'Active' },
-        { id: 3, name: 'Hans Odiboh', email: 'hansodiboh@gmail.com', contact: '+91883894995', lastActive: '-', appVersion: '-', createdDate: 'November 12, 2024 3:07 PM', status: 'Active' },
-        { id: 4, name: 'Gannon Travis', email: 'travis@rider.com', contact: '+919879879877', lastActive: 'November 13, 2024 7:24 AM', appVersion: '-', createdDate: 'November 12, 2024 5:23 AM', status: 'Active' },
-        { id: 6, name: 'Rider 2', email: 'r@r.com', contact: '34846401640', lastActive: 'November 11, 2024 7:18 PM', appVersion: '-', createdDate: 'November 11, 2024 7:18 PM', status: 'Active' },
-        { id: 7, name: 'Rider 2', email: 'r@r.com', contact: '34846401640', lastActive: 'November 11, 2024 7:18 PM', appVersion: '-', createdDate: 'November 11, 2024 7:18 PM', status: 'Active' },
-        { id: 8, name: 'Rider 2', email: 'r@r.com', contact: '34846401640', lastActive: 'November 11, 2024 7:18 PM', appVersion: '-', createdDate: 'November 11, 2024 7:18 PM', status: 'Active' },
-        { id: 9, name: 'Rider 2', email: 'r@r.com', contact: '34846401640', lastActive: 'November 11, 2024 7:18 PM', appVersion: '-', createdDate: 'November 11, 2024 7:18 PM', status: 'Active' },
-        { id: 10, name: 'Rider 2', email: 'r@r.com', contact: '34846401640', lastActive: 'November 11, 2024 7:18 PM', appVersion: '-', createdDate: 'November 11, 2024 7:18 PM', status: 'Active' },
-        { id: 11, name: 'Rider 2', email: 'r@r.com', contact: '34846401640', lastActive: 'November 11, 2024 7:18 PM', appVersion: '-', createdDate: 'November 11, 2024 7:18 PM', status: 'Active' },
-        { id: 12, name: 'Rider 2', email: 'r@r.com', contact: '34846401640', lastActive: 'November 11, 2024 7:18 PM', appVersion: '-', createdDate: 'November 11, 2024 7:18 PM', status: 'Active' },
-        { id: 13, name: 'Rider 2', email: 'r@r.com', contact: '34846401640', lastActive: 'November 11, 2024 7:18 PM', appVersion: '-', createdDate: 'November 11, 2024 7:18 PM', status: 'Active' },
-        { id: 14, name: 'Rider 2', email: 'r@r.com', contact: '34846401640', lastActive: 'November 11, 2024 7:18 PM', appVersion: '-', createdDate: 'November 11, 2024 7:18 PM', status: 'Active' },
-        { id: 15, name: 'Rider 2', email: 'r@r.com', contact: '34846401640', lastActive: 'November 11, 2024 7:18 PM', appVersion: '-', createdDate: 'November 11, 2024 7:18 PM', status: 'Active' },
+    const [customer,setCustomers] = useState([]);
 
-    ];
+    useEffect(() => {
+        const fetchCustomers = async () => {
+            try {
+                const response = await axios.get(`${BACKEND_API_ENDPOINT}/api/customer/getallcustomer`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    withCredentials: true,
+                });
+                if (response.data.success) {
 
-    const [users, setUsers] = useState(data);
+                    setCustomers(response.data.data);
+
+                } else {
+                    alert('Failed to fetch Customers');
+                }
+            } catch (error) {
+                console.error('Error fetching Customers:', error);
+                alert('An error occurred while fetching Customers');
+            }
+        };
+
+        fetchCustomers();
+    }, []);
+
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedRideDetails, setSelectedRideDetails] = useState({});
+    const [users, setUsers] = useState(customer);
     const [currentPage, setCurrentPage] = useState(1);
     const [entriesPerPage, setEntriesPerPage] = useState(10);
     const [displayedUsers, setDisplayedUsers] = useState([]);
 
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
+
     useEffect(() => {
+        setUsers(customer);
         const startIdx = (currentPage - 1) * entriesPerPage;
         const endIdx = startIdx + entriesPerPage;
         setDisplayedUsers(users.slice(startIdx, endIdx));
-    }, [users, currentPage, entriesPerPage]);
+    }, [users, currentPage, entriesPerPage,customer]);
 
     const totalPages = Math.ceil(users.length / entriesPerPage);
 
@@ -54,9 +71,64 @@ const CustomerData = () => {
 
     return (
         <div className="p-4 bg-[#f7f9ff]">
+            {/* Modal */}
+            {isModalOpen && (
+                <div
+                    className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center"
+                    onClick={closeModal} // Close on clicking the background
+                >
+                    {/* Modal content */}
+                    <div
+                        className="bg-white rounded shadow-lg absolute top-5 w-2/5 p-4"
+                        onClick={(e) => e.stopPropagation()} // Stop propagation to prevent modal from closing
+                    >
+                        {/* Modal header */}
+                        <div className="flex justify-between items-center border-b px-4 py-2">
+                            <h2 className="text-xl font-bold">Customer Details</h2>
+                            <button
+                                className="text-gray-600 hover:text-red-500 text-2xl"
+                                onClick={closeModal}
+                            >
+                                &times;
+                            </button>
+                        </div>
+
+                        {/* Modal body */}
+                        <div className="p-4 space-y-4 flex gap-4">
+
+                            {/*  Details */}
+                            <div>
+                                <div className=' mb-6'>
+                                    <h3 className="text-lg font-semibold border-b pb-2">Details</h3>
+                                    <ul className="space-y-1 mt-2 grid grid-cols-2 gap-x-10">
+                                        <li><strong>ID: </strong> {selectedRideDetails._id}</li>
+                                        <li><strong>Customer: </strong> {selectedRideDetails.firstName} {selectedRideDetails.lastName}</li>
+                                        
+                                        <li><strong>Email: </strong> {selectedRideDetails.email}</li>
+                                        <li><strong>Contact info: </strong> {selectedRideDetails.phoneNumber}</li>
+                                        <li><strong>Created At: </strong> {selectedRideDetails.savedAt.split("T")[0] || "12 Nov 2024"}</li>
+                                        <li><strong>Rides Booked: </strong> {selectedRideDetails.ride_booked || "0"}</li>
+                                        <li><strong>Rides Cancelled: </strong> {selectedRideDetails.ride_canceled || "0"}</li>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="flex justify-end p-4 border-t gap-2">
+                            <button
+                                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                                onClick={closeModal}
+                            >
+                                Close
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            )}
             <h1 className='text-3xl py-4 font-semibold border-b-2 border-blue-100 bg-white px-2'>Customer List</h1>
             <div className='bg-white py-4 px-2'>
-                <div className="flex items-center gap-4 mb-4">
+                {/* <div className="flex items-center gap-4 mb-4">
                     <label className="font-semibold">Status(info)</label>
                     <select className="border p-2 rounded">
                         <option value="All">All users</option>
@@ -64,7 +136,7 @@ const CustomerData = () => {
                         <option value="Inactive">Inactive users</option>
                     </select>
                     <button className="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>
-                </div>
+                </div> */}
 
                 <div className="flex items-center mb-4">
                     <label className="mr-2">Show</label>
@@ -89,25 +161,28 @@ const CustomerData = () => {
                             <th className="py-4 px-2 border-b-2 border-blue-200">Email</th>
                             <th className="py-4 px-2 border-b-2 border-blue-200">Contact Number</th>
                             <th className="py-4 px-2 border-b-2 border-blue-200">Created Date</th>
-                            <th className="py-4 px-2 border-b-2 border-blue-200">Status</th>
+                            <th className="py-4 px-2 border-b-2 border-blue-200">Rides Booked</th>
+                            <th className="py-4 px-2 border-b-2 border-blue-200">Rides Cancelled</th>
+                            
                             <th className="py-4 px-2 border-b-2 border-blue-200">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {displayedUsers.map((user, index) => (
-                            <tr key={user.id} className="hover:bg-gray-50 text-center">
+                            <tr key={user._id} className="hover:bg-gray-50 text-center">
                                 <td className="p-2 border-b-2 border-blue-200">{(currentPage - 1) * entriesPerPage + index + 1}</td>
-                                <td className="p-2 border-b-2 border-blue-200">{user.name}</td>
+                                <td className="p-2 border-b-2 border-blue-200">{user.firstName} {user.lastName}</td>
                                 <td className="p-2 border-b-2 border-blue-200">{user.email}</td>
-                                <td className="p-2 border-b-2 border-blue-200">{user.contact}</td>
-                                <td className="p-2 border-b-2 border-blue-200">{user.createdDate}</td>
+                                <td className="p-2 border-b-2 border-blue-200">{user.phoneNumber}</td>
+                                <td className="p-2 border-b-2 border-blue-200">{user.savedAt.split("T")[0] || "12 Nov 2024"}</td>
+                                <td className="p-2 border-b-2 border-blue-200"> <span className='text-green-500'>{user.ride_booked || "0"} </span></td>
+                                <td className="p-2 border-b-2 border-blue-200"><span className='text-red-500'>{ user.ride_canceled || "0"}</span></td>
+                                
                                 <td className="p-2 border-b-2 border-blue-200">
-                                    <span className="bg-blue-500 text-white px-2 py-1 rounded">{user.status}</span>
-                                </td>
-                                <td className="p-2 border-b-2 border-blue-200">
-                                    <button className="text-blue-600 mx-1 text-xl"><FaRegEdit/></button>
-                                    <button className="text-blue-600 mx-1">👁️</button>
-                                    <button className="text-red-600 mx-1 text-xl"><MdDelete/></button>
+                                <button className="text-blue-600 mx-1 font-semibold text-xl" onClick={()=>{
+                                        setSelectedRideDetails(user);
+                                        openModal();
+                                    }}><BsFillEyeFill/></button>
                                 </td>
                             </tr>
                         ))}

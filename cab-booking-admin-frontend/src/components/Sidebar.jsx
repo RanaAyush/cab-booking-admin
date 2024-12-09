@@ -54,9 +54,9 @@ const Sidebar = () => {
   };
 
   return (
-    <div className={`bg-white text-[#535f6b] p-5 transition-width duration-500 text-sm font-semibold ${isCollapsed ? 'w-20' : 'w-60'}`}>
+    <div className={`bg-white text-[#535f6b] p-5 transition-width ease-in-out duration-700 text-sm font-semibold ${isCollapsed ? 'w-20' : 'w-60'}`}>
       <div className='flex items-center justify-between px-2 mb-4'>
-        {!isCollapsed && <img src={car} alt="carlogo" className=' w-10 h-10 rounded-full border-2 border-black p-1' />}
+        {!isCollapsed && <img src={car} alt="carlogo" className=' w-12 h-12 rounded-full' />}
         <button onClick={toggleSidebar} className="mb-4 text-gray-500 hover:text-gray-800 pt-2">
           <HiMenu className='h-8 w-8' />
         </button>
@@ -181,16 +181,6 @@ const Sidebar = () => {
                 <span>Pending Driver</span>
               </Link>
             </li>
-            {/* <li>
-              <Link
-                to="/driver/docs"
-                className="flex items-center space-x-3 p-2 hover:bg-blue-50 hover:text-blue-600 rounded"
-              >
-                <FaPlus />
-                <span>Manage Driver Documents</span>
-              </Link>
-            </li> */}
-            
           </ul>
         </li>
         <li>
@@ -265,7 +255,7 @@ const Sidebar = () => {
             </li>
             <li>
               <Link
-                to="/riderequest/completed"
+                to="/riderequest/confrim"
                 className="flex items-center space-x-3 p-2 hover:bg-blue-50 hover:text-blue-600 rounded"
               >
                 <FaList />
@@ -274,23 +264,13 @@ const Sidebar = () => {
             </li>
             <li>
               <Link
-                to="/riderequest/cancelled"
+                to="/riderequest/Cancelled"
                 className="flex items-center space-x-3 p-2 hover:bg-blue-50 hover:text-blue-600 rounded"
               >
                 <FaList />
                 <span>Cancelled List</span>
               </Link>
             </li>
-            <li>
-              <Link
-                to="/riderequest/pending"
-                className="flex items-center space-x-3 p-2 hover:bg-blue-50 hover:text-blue-600 rounded"
-              >
-                <FaList />
-                <span>Pending List</span>
-              </Link>
-            </li>
-            
           </ul>
         </li>
         <li>
@@ -437,7 +417,7 @@ const Sidebar = () => {
           </div>
 
           <ul
-            className={`space-y-4 overflow-hidden border-blue-100 border rounded transition-all duration-700 ease-in-out ${isReport ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
+            className={`space-y-4 overflow-hidden border-blue-100 border rounded transition-all duration-700 ease-in-out ${isReport ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0'
               }`}
           >
             <li>
@@ -449,22 +429,22 @@ const Sidebar = () => {
                 <span>Admin Report</span>
               </Link>
             </li>
-            <li>
-              <Link
-                to="/report/driver"
-                className="flex items-center space-x-3 p-2 hover:bg-blue-50 hover:text-blue-600 rounded"
-              >
-                <FaDollarSign />
-                <span>Driver Earnings</span>
-              </Link>
-            </li>
-            <li>
+            {/* <li>
               <Link
                 to="/report/servicewise"
                 className="flex items-center space-x-3 p-2 hover:bg-blue-50 hover:text-blue-600 rounded"
               >
                 <FaDollarSign />
                 <span>Service Wise</span>
+              </Link>
+            </li> */}
+            <li>
+              <Link
+                to="/report/withdraw"
+                className="flex items-center space-x-3 p-2 hover:bg-blue-50 hover:text-blue-600 rounded"
+              >
+                <FaDollarSign />
+                <span>Withdrawl Report</span>
               </Link>
             </li>
           </ul>

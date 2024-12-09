@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios'
+import BACKEND_API_ENDPOINT from '../utils/constants.js'
 
 const UpdateComplaintForm = ({id}) => {
-  console.log(id);
-  
   
   const [formData, setFormData] = useState({
     subject: "Rude Behaviour",
@@ -16,11 +16,11 @@ const UpdateComplaintForm = ({id}) => {
   });
   const navigate = useNavigate();
 //   useEffect(() => {
-//     const fetchCoupon = async () => {
+//     const fetchComplaint = async () => {
                
 //         try {
 //             const response = await axios.post(
-//                 `http://localhost:8000/api/coupon/getcouponbyid`,
+//                 `${BACKEND_API_ENDPOINT}/api/complaint/getcomplaintbyid`,
 //                 { _id: id },
 //                 {
 //                     headers: {
@@ -30,62 +30,47 @@ const UpdateComplaintForm = ({id}) => {
 //                 }
 //             );
 //             if (response.data.success) {
-
-//                 const formattedData = {
-//                     ...response.data.data,
-//                     startDate: response.data.data.startDate 
-//                         ? new Date(response.data.data.startDate).toISOString().split('T')[0]
-//                         : '',
-//                     endDate: response.data.data.endDate
-//                         ? new Date(response.data.data.endDate).toISOString().split('T')[0]
-//                         : ''
-//                 };
             
 //                 setFormData(prevFormData => ({
 //                     ...prevFormData,
-//                     ...formattedData
+//                     ...response.data.data
 //                 }));
                 
 
 //             } else {
-//                 alert('Failed to fetch coupon');
+//                 alert('Failed to fetch complaint');
 //             }
 //         } catch (error) {
-//             alert('An error occurred while fetching coupon');
+//             alert('An error occurred while fetching complaint');
 //         }
 //     };
 
-//     fetchCoupon();
+//     fetchComplaint();
 // }, [id]);
 
-// const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//         const res = await axios.post(`http://localhost:8000/api/coupon/updatecoupon/${id}`, formData, {
-//             headers: { "Content-Type": "application/json" },
-//             withCredentials: true,
-//         });
-//         if (res.data.success) {
-//             alert(res.data.message || "coupon updated Successfully ;)");
-//             navigate("/coupon")
-//         } else {
-//             alert(res.data.message || "failure");
-//         }
-//     } catch (error) {
-//         alert(error.response?.data?.message || "An unexpected error occurred");
-//     }
-// };
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    // try {
+    //     const res = await axios.post(`${BACKEND_API_ENDPOINT}/api/complaint/updatecomplaint/${id}`, formData, {
+    //         headers: { "Content-Type": "application/json" },
+    //         withCredentials: true,
+    //     });
+    //     if (res.data.success) {
+    //         alert(res.data.message || "complaint updated Successfully ;)");
+    //         navigate("/complaints/resolved")
+    //     } else {
+    //         alert(res.data.message || "failure");
+    //     }
+    // } catch (error) {
+    //     alert(error.response?.data?.message || "An unexpected error occurred");
+    // }
+    navigate("/complaints/resolved");
+};
 
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    navigate("/complaints/resolved");
-    // Add your API call or other logic here
   };
 
   return (
