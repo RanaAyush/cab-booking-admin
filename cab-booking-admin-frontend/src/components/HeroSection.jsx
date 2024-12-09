@@ -12,17 +12,18 @@ import IncomeChart from './IncomeChart.jsx'
 import Footer from './Footer.jsx';
 import axios from 'axios';
 import BACKEND_API_ENDPOINT from '../utils/constants.js';
+import { Link } from 'react-router-dom';
 
 const HeroSection = () => {
   const [cardsData, setCardsData] = useState([
-    { count: 1750, label: "Total Driver", icon: user },
-    { count: 324, label: "Total Customer", icon: bike },
-    { count: 2432, label: "Total Rides", icon: car },
-    { count: 1133, label: "Total Coupons", icon: voucher },
-    { count: 321, label: "Today Earning", icon: salary },
-    { count: 512, label: "Monthly Earning", icon: wallet },
-    { count: 98, label: "Total Earning", icon: profit },
-    { count: 0, label: "Complaints", icon: complaint },
+    { count: 1750, label: "Total Driver", icon: user,link:'/driver' },
+    { count: 324, label: "Total Customer", icon: bike,link:'/customer' },
+    { count: 2432, label: "Total Rides", icon: car,link:'/riderequest/all' },
+    { count: 1133, label: "Total Coupons", icon: voucher,link:'/coupon' },
+    { count: 321, label: "Today Earning", icon: salary,link:'/dashboard' },
+    { count: 512, label: "Monthly Earning", icon: wallet,link:'/dashboard' },
+    { count: 98, label: "Total Earning", icon: profit,link:'/dashboard' },
+    { count: 0, label: "Complaints", icon: complaint,link:'/complaints/resolved' },
   ])
 
   useEffect(() => {
@@ -96,7 +97,11 @@ const HeroSection = () => {
     <div className="container mx-auto px-4 py-2 bg-[#f7f9ff]">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {cardsData.map((card, index) => (
-          <div key={index} className="bg-white shadow-lg rounded-lg p-6 flex items-center justify-between">
+          <Link
+            key={index}
+            to={card.link} // Assuming 'link' property in card contains the navigation URL
+            className="bg-white shadow-lg rounded-lg p-6 flex items-center justify-between hover:shadow-xl transform transition-transform hover:scale-105"
+          >
             <div className="text-primary">
               <img src={card.icon} alt={card.label} className="w-12 h-12" />
             </div>
@@ -104,7 +109,7 @@ const HeroSection = () => {
               <h5 className="font-semibold text-xl">{card.count}</h5>
               <p className="text-gray-500">{card.label}</p>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
       <div className="container mx-auto px-4 py-8 grid gap-6 md:grid-cols-2">

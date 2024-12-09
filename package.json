@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon cab-booking-admin-backend/index.js",
-    "build":"npm install && npm install --prefix cab-booking-admin-frontend && npm run build --prefix cab-booking-admin-frontend",
-    "start":"nodemon cab-booking-admin-backend/index.js"
+    "build": "npm install && npm install --prefix cab-booking-admin-frontend && npm run build --prefix cab-booking-admin-frontend",
+    "start": "nodemon cab-booking-admin-backend/index.js"
   },
   "author": "",
   "license": "ISC",
