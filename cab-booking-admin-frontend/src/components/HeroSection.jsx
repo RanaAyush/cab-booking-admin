@@ -20,9 +20,9 @@ const HeroSection = () => {
     { count: 324, label: "Total Customer", icon: bike,link:'/customer' },
     { count: 2432, label: "Total Rides", icon: car,link:'/riderequest/all' },
     { count: 1133, label: "Total Coupons", icon: voucher,link:'/coupon' },
-    { count: 321, label: "Today Earning", icon: salary,link:'/dashboard' },
     { count: 512, label: "Monthly Earning", icon: wallet,link:'/dashboard' },
     { count: 98, label: "Total Earning", icon: profit,link:'/dashboard' },
+    { count: 321, label: "Withdraw Requests", icon: salary,link:'/report/withdraw' },
     { count: 0, label: "Complaints", icon: complaint,link:'/complaints/resolved' },
   ])
 
@@ -35,6 +35,7 @@ const HeroSection = () => {
           couponResponse,
           complaintResponse,
           rideResponse,
+          withdrawcount,
         ] = await Promise.all([
           axios.get(`${BACKEND_API_ENDPOINT}/api/customer/count`, {
             headers: { 'Content-Type': 'application/json' },
@@ -56,6 +57,10 @@ const HeroSection = () => {
             headers: { 'Content-Type': 'application/json' },
             withCredentials: true,
           }),
+          axios.get(`${BACKEND_API_ENDPOINT}/api/withdraw/count`, {
+            headers: { 'Content-Type': 'application/json' },
+            withCredentials: true,
+          }),
         ]);
 
         // Extract the counts from responses
@@ -64,6 +69,7 @@ const HeroSection = () => {
         const couponCount = couponResponse.data.count || 0;
         const complaintCount = complaintResponse.data.count || 0;
         const rideCount = rideResponse.data.count || 0;
+        const withdrawCount = withdrawcount.data.count || 0;
 
         // Update the cardsData state
         setCardsData((prevCardsData) =>
@@ -79,14 +85,16 @@ const HeroSection = () => {
                 return { ...card, count: complaintCount };
               case "Total Rides":
                 return { ...card, count: rideCount };
+              case "Withdraw Requests":
+                return { ...card, count: withdrawCount };
               default:
                 return card; // Keep other cards unchanged
             }
           })
         );
       } catch (error) {
-        console.error('Error fetching Customers:', error);
-        alert('An error occurred while fetching Customers');
+        console.error('Error fetching Details:', error);
+        alert('An error occurred while fetching Details');
       }
     };
 
