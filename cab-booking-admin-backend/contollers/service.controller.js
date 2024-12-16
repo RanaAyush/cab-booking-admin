@@ -2,9 +2,11 @@ import { Service } from '../models/service.model.js';
 
 export const createService = async (req, res) => {
     try {
+        
         const {
             name,
             region,
+            regionId,
             baseFare,
             nightCharges,
             surgeCharges,
@@ -39,6 +41,7 @@ export const createService = async (req, res) => {
         const newService = new Service({
             name,
             region,
+            regionId,
             baseFare,
             nightCharges,
             surgeCharges,
@@ -167,6 +170,7 @@ export const updateService = async(req,res)=>{
         const {
             name,
             region,
+            regionId,
             baseFare,
             nightCharges,
             surgeCharges,
@@ -210,6 +214,7 @@ export const updateService = async(req,res)=>{
             {
                 name,
                 region,
+                regionId,
                 baseFare,
                 nightCharges,
                 surgeCharges,

@@ -10,6 +10,10 @@ const serviceSchema = new mongoose.Schema({
         required: true,
         trim: true,
     },
+    regionId: {
+        type:String,
+        required: true,
+    },
     baseFare: {
         type: Number,
         required: true,

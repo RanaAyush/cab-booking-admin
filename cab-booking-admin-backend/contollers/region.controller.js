@@ -107,8 +107,6 @@ export const updateRegion = async (req, res) => {
     const { Status } = req.body;
     console.log(id, Status);
 
-
-    // Validate that ID and active status are provided
     if (!id) {
       return res.status(400).json({
         success: false,
@@ -149,8 +147,7 @@ export const updateRegion = async (req, res) => {
 
 export const getRegioncity = async (req, res) => {
   try {
-    const regions = await Region.find({}, { city: 1, _id: 0 }); 
-    
+    const regions = await Region.find({}, { city: 1 }); 
     return res.status(200).json({
       success: true,
       data: regions,
