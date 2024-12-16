@@ -3,8 +3,8 @@ import React, { useState } from "react";
 const RegionDropdown = ({ formData, setFormData, regions }) => {
     const [isOpen, setIsOpen] = useState(false);
 
-    const handleSelect = (city) => {
-        setFormData({ ...formData, region: city });
+    const handleSelect = (city,_id) => {
+        setFormData({ ...formData, region: city, regionId :_id });
         setIsOpen(false);
     };
 
@@ -25,7 +25,7 @@ const RegionDropdown = ({ formData, setFormData, regions }) => {
                         <li
                             key={index}
                             className="p-2 hover:bg-gray-200 cursor-pointer"
-                            onClick={() => handleSelect(region.city)}
+                            onClick={() => handleSelect(region.city, region._id)}
                         >
                             {region.city}
                         </li>

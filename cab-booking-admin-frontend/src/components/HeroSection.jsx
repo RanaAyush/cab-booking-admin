@@ -16,13 +16,13 @@ import { Link } from 'react-router-dom';
 
 const HeroSection = () => {
   const [cardsData, setCardsData] = useState([
-    { count: 1750, label: "Total Driver", icon: user,link:'/driver' },
-    { count: 324, label: "Total Customer", icon: bike,link:'/customer' },
-    { count: 2432, label: "Total Rides", icon: car,link:'/riderequest/all' },
-    { count: 1133, label: "Total Coupons", icon: voucher,link:'/coupon' },
+    { count: 0, label: "Total Driver", icon: user,link:'/driver' },
+    { count: 0, label: "Total Customer", icon: bike,link:'/customer' },
+    { count: 0, label: "Total Rides", icon: car,link:'/riderequest/all' },
+    { count: 0, label: "Total Coupons", icon: voucher,link:'/coupon' },
     { count: 512, label: "Monthly Earning", icon: wallet,link:'/dashboard' },
     { count: 98, label: "Total Earning", icon: profit,link:'/dashboard' },
-    { count: 321, label: "Withdraw Requests", icon: salary,link:'/report/withdraw' },
+    { count: 0, label: "Withdraw Requests", icon: salary,link:'/report/withdraw' },
     { count: 0, label: "Complaints", icon: complaint,link:'/complaints/resolved' },
   ])
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import RegionDropdown from "./RegionDropdown";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import BACKEND_API_ENDPOINT from '../utils/constants.js'
 
 const AddServiceForm = () => {
@@ -9,6 +9,7 @@ const AddServiceForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     region: "",
+    regionId:"",
     baseFare: "",
     nightCharges: "",
     surgeCharges: "",
@@ -26,23 +27,25 @@ const AddServiceForm = () => {
 
   const [regions, setRegions] = useState([]);
 
-    useEffect(() => {
-        // Fetch regions from the backend
-        const fetchRegions = async () => {
-            try {
-                const response = await axios.get(`${BACKEND_API_ENDPOINT}/api/region/getregioncity`); 
-                if (response.data.success) {
-                    setRegions(response.data.data);
-                } else {
-                    console.error("Failed to fetch regions");
-                }
-            } catch (error) {
-                console.error("Error fetching regions:", error);
-            }
-        };
+  useEffect(() => {
+    // Fetch regions from the backend
+    const fetchRegions = async () => {
+      try {
+        const response = await axios.get(`${BACKEND_API_ENDPOINT}/api/region/getregioncity`);
+        if (response.data.success) {
+          setRegions(response.data.data);
+          
+          
+        } else {
+          console.error("Failed to fetch regions");
+        }
+      } catch (error) {
+        console.error("Error fetching regions:", error);
+      }
+    };
 
-        fetchRegions();
-    }, []);
+    fetchRegions();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,7 +55,7 @@ const AddServiceForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true); 
+    setIsLoading(true);
 
     try {
       const res = await axios.post(`${BACKEND_API_ENDPOINT}/api/service/createservice`, formData, {
@@ -97,12 +100,12 @@ const AddServiceForm = () => {
             />
           </div>
 
-          {/* Region Field */} 
+          {/* Region Field */}
           <RegionDropdown
-                formData={formData}
-                setFormData={setFormData}
-                regions={regions}
-            />
+            formData={formData}
+            setFormData={setFormData}
+            regions={regions}
+          />
           {/* Base Fare Field */}
           <div>
             <label className="block text-sm font-medium mb-1">
